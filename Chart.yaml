@@ -1,0 +1,5 @@
+apiVersion: v2
+name: transmission-chart
+description: Simple Helm chart for transmission-daemon
+type: application
+version: 1.0.0
