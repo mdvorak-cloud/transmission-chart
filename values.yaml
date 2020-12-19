@@ -11,7 +11,7 @@ jqImage:
 metricsImage:
   repository: metalmatze/transmission-exporter
   pullPolicy: IfNotPresent
-  tag: 0.3.0
+  tag: master # Move to stable version when available
 
 imagePullSecrets: [ ]
 nameOverride: ""
