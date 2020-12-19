@@ -35,15 +35,7 @@ spec:
             - sh
             - -c
             - |
-              if [ -f "${TARGET}" ]; then
-                echo "${WHITELIST_JSON}" > "${WHITELIST}"
-                jq -s '.[0] * .[1] * .[2]' "${TARGET}" "${WHITELIST}" "${FROM}" > /tmp/settings.json
-                cp /tmp/settings.json "${TARGET}"
-              else
-                cp "${FROM}" "${TARGET}"
-              fi
-              # TODO
-              cat "${TARGET}"
+          {{- .Files.Get "init-settings.sh" | trim | nindent 14 }}
           env:
             - name: TARGET
               value: /config/settings.json
