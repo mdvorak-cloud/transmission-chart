@@ -23,7 +23,7 @@
 .vscode/
 # Resources
 .github/
-build/
+.build/
 *.svg
 *.png
 *.md
