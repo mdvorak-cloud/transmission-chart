@@ -5,7 +5,7 @@ metadata:
   labels:
   {{- include "transmission-chart.labels" . | nindent 4 }}
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: 1
   selector:
     matchLabels:
   {{- include "transmission-chart.selectorLabels" . | nindent 6 }}
