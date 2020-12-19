@@ -28,11 +28,24 @@ spec:
       securityContext:
       {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
-        - name: config
-          image: busybox
+        - name: settings
+          securityContext:
+          {{- toYaml .Values.securityContext | nindent 12 }}
+          image: {{ .Values.jqImage.repository }}:{{ .Values.jqImage.tag }}
+          imagePullPolicy: {{ .Values.jqImage.pullPolicy }}
           command:
-            - echo
-            - OK
+            - sh
+            - -c
+            - |
+              jq -s '.[0] * .[1]' /config/settings.json /var/run/configs/transmission/settings.json > /tmp/settings.json
+              cp /tmp/settings.json /config/settings.json
+          volumeMounts:
+            - name: static-settings
+              mountPath: /var/run/configs/transmission
+              readOnly: true
+            - name: transmission-config
+              mountPath: /config
+              readOnly: false
       containers:
         - name: transmission
           securityContext:
@@ -58,10 +71,26 @@ spec:
               path: /
               port: http
           env:
+            - name: FILE__USER
+              value: /var/run/secrets/transmission/{{ .Values.transmission.userSecretKey }}
+            - name: FILE__PASS
+              value: /var/run/secrets/transmission/{{ .Values.transmission.passSecretKey }}
           {{- toYaml .Values.environment | nindent 12 }}
           resources:
-      {{- toYaml .Values.resources | nindent 12 }}
-      {{- with .Values.nodeSelector }}
+          {{- toYaml .Values.resources | nindent 12 }}
+          {{- with .Values.nodeSelector }}
+          volumeMounts:
+            - name: auth-secret
+              mountPath: /var/run/secrets/transmission
+              readOnly: true
+            - name: transmission-config
+              mountPath: /config
+              readOnly: false
+            - name: transmission-downloads
+              mountPath: /downloads
+              readOnly: false
+            - name: transmission-watch
+              mountPath: /watch
       nodeSelector:
       {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -71,5 +100,21 @@ spec:
       {{- end }}
       {{- with .Values.tolerations }}
       tolerations:
-  {{- toYaml . | nindent 8 }}
-  {{- end }}
+      {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: static-settings
+          configMap:
+            name: {{ include "transmission-chart.fullname" . }}
+        - name: auth-secret
+          secret:
+            secretName: {{ include "transmission-chart.fullname" . }}
+        - name: transmission-config
+          persistentVolumeClaim:
+            claimName:
+        - name: transmission-downloads
+          persistentVolumeClaim:
+            claimName:
+        - name: transmission-watch
+          persistentVolumeClaim:
+            claimName:

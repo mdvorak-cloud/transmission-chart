@@ -5,6 +5,11 @@ image:
   pullPolicy: IfNotPresent
   tag: ""
 
+jqImage:
+  repository: quay.io/mdvorak/ubi-jq
+  pullPolicy: IfNotPresent
+  tag: 8
+
 imagePullSecrets: [ ]
 nameOverride: ""
 fullnameOverride: ""
@@ -42,11 +47,11 @@ ingress:
   #  kubernetes.io/tls-acme: "true"
   path: /
   hosts:
-    - chart-example.local
+    - transmission.local
   tls: [ ]
-  #  - secretName: chart-example-tls
+  #  - secretName: transmission-tls
   #    hosts:
-  #      - chart-example.local
+  #      - transmission.local
 
 resources: { }
 # We usually recommend not to specify default resources and to leave this as a conscious
@@ -54,8 +59,8 @@ resources: { }
 # resources, such as Minikube. If you do want to specify resources, uncomment the following
 # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
 # limits:
-#   cpu: 100m
-#   memory: 128Mi
+#   cpu: 500m
+#   memory: 256Mi
 # requests:
 #   cpu: 100m
 #   memory: 128Mi
@@ -74,4 +79,8 @@ environment: [ ]
 # - name: UMASK
 #   value: "022"
 
-# TODO https://github.com/Naunter/BT_BlockLists/raw/master/bt_blocklists.gz
+transmission:
+  userSecretKey: user
+  passSecretKey: pass
+  settings: { } # List of keys, forcefully set on pod restart to transmission settings.json
+  # blocklist-url: https://github.com/Naunter/BT_BlockLists/raw/master/bt_blocklists.gz
