@@ -106,9 +106,12 @@ spec:
               mountPath: /watch
               readOnly: false
         {{- if .Values.metrics.enabled }}
+        # TODO image from values
         - image: metalmatze/transmission-exporter
           name: metrics
-          imagePullPolicy: Always
+          imagePullPolicy: IfNotPresent
+          securityContext:
+          {{- toYaml .Values.securityContext | nindent 12 }}
           resources:
             limits:
               cpu: 100m
