@@ -3,7 +3,18 @@ entries:
   transmission:
   - apiVersion: v2
     appVersion: 3.00-r0-ls70
-    created: "2020-12-19T20:14:21.782220292Z"
+    created: "2020-12-19T21:45:15.672138989Z"
+    description: Simple Helm chart for linuxserver/transmission
+    digest: 5a8ba38bbc865d1926007447574e025930e5697bad58f03f0b4d8deb697c0d85
+    icon: https://raw.githubusercontent.com/mdvorak-cloud/transmission-chart/main/icon.svg
+    name: transmission
+    type: application
+    urls:
+    - https://mdvorak-cloud.github.io/transmission-chart/transmission-0.0.9.tgz
+    version: 0.0.9
+  - apiVersion: v2
+    appVersion: 3.00-r0-ls70
+    created: "2020-12-19T21:45:15.67149008Z"
     description: Simple Helm chart for linuxserver/transmission
     digest: 307e24d2878909f3b0de7031dbbe71d4cb60d2475d5172bbd9b335abd2304a48
     icon: https://raw.githubusercontent.com/mdvorak-cloud/transmission-chart/main/icon.svg
@@ -14,7 +25,7 @@ entries:
     version: 0.0.7
   - apiVersion: v2
     appVersion: 3.00-r0-ls70
-    created: "2020-12-19T20:14:21.781486585Z"
+    created: "2020-12-19T21:45:15.670843472Z"
     description: Simple Helm chart for linuxserver/transmission
     digest: f15b78bafc097c53d1c7d618530da185f2f841701eb0c7c6272d352e315878b4
     icon: https://raw.githubusercontent.com/mdvorak-cloud/transmission-chart/main/icon.svg
@@ -25,7 +36,7 @@ entries:
     version: 0.0.6
   - apiVersion: v2
     appVersion: 3.00-r0-ls70
-    created: "2020-12-19T20:14:21.780796978Z"
+    created: "2020-12-19T21:45:15.670207763Z"
     description: Simple Helm chart for linuxserver/transmission
     digest: 239e9c2e67272e826e5b75ffdb3135ecb6602235373f23e62d11a94488819e26
     icon: https://raw.githubusercontent.com/mdvorak-cloud/transmission-chart/main/icon.svg
@@ -36,7 +47,7 @@ entries:
     version: 0.0.4
   - apiVersion: v2
     appVersion: 3.00-r0-ls70
-    created: "2020-12-19T20:14:21.780086171Z"
+    created: "2020-12-19T21:45:15.669552654Z"
     description: Simple Helm chart for linuxserver/transmission
     digest: 57eaa0755fd9bc80fa234cda47c647cf024bdeff819a4c1708a9ddd1c24a062a
     icon: https://raw.githubusercontent.com/mdvorak-cloud/transmission-chart/main/icon.svg
@@ -45,4 +56,4 @@ entries:
     urls:
     - https://mdvorak-cloud.github.io/transmission-chart/transmission-0.0.3.tgz
     version: 0.0.3
-generated: "2020-12-19T20:14:21.778789159Z"
+generated: "2020-12-19T21:45:15.668696442Z"
