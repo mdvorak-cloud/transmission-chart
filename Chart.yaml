@@ -4,3 +4,4 @@ description: Simple Helm chart for linuxserver/transmission
 type: application
 version: 0.1.0
 appVersion: 3.00-r0-ls70
+icon: https://upload.wikimedia.org/wikipedia/commons/4/46/Transmission_Icon.svg
