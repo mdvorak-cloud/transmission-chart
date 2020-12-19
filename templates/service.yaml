@@ -19,7 +19,7 @@ spec:
       targetPort: torrent-udp
       protocol: UDP
       name: torrent-udp
-    - port: {{ .Values.serviceMonitor.port }}
+    - port: {{ .Values.metrics.port }}
       targetPort: metrics
       protocol: TCP
       name: metrics
