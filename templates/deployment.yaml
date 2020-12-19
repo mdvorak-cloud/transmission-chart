@@ -36,7 +36,8 @@ spec:
             - -c
             - |
               if [ -f "${TARGET}" ]; then
-                jq -s '.[0] * .[1]' "${TARGET}" "${FROM}" > /tmp/settings.json
+                echo "${WHITELIST_JSON}" > "${WHITELIST}"
+                jq -s '.[0] * .[1] * .[2]' "${TARGET}" "${WHITELIST}" "${FROM}" > /tmp/settings.json
                 cp /tmp/settings.json "${TARGET}"
               else
                 cp "${FROM}" "${TARGET}"
@@ -48,6 +49,11 @@ spec:
               value: /config/settings.json
             - name: FROM
               value: /var/run/configs/transmission/settings.json
+            - name: WHITELIST
+              value: /tmp/whitelist.json
+            - name: WHITELIST_JSON
+              value: >-
+                {"rpc-host-whitelist-enabled":false,"rpc-whitelist-enabled":false}
           volumeMounts:
             - name: static-settings
               mountPath: /var/run/configs/transmission
