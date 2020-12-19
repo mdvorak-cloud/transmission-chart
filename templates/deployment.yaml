@@ -6,6 +6,8 @@ metadata:
   {{- include "transmission.labels" . | nindent 4 }}
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
   {{- include "transmission.selectorLabels" . | nindent 6 }}
