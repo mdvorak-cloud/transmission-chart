@@ -8,6 +8,11 @@ jqImage:
   pullPolicy: IfNotPresent
   tag: 8
 
+metricsImage:
+  repository: metalmatze/transmission-exporter
+  pullPolicy: IfNotPresent
+  tag: latest
+
 imagePullSecrets: [ ]
 nameOverride: ""
 fullnameOverride: ""
