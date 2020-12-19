@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "transmission-chart.fullname" . }}
+  name: {{ include "transmission.fullname" . }}
   labels:
-  {{- include "transmission-chart.labels" . | nindent 4 }}
+  {{- include "transmission.labels" . | nindent 4 }}
 spec:
   replicas: 1
   selector:
     matchLabels:
-  {{- include "transmission-chart.selectorLabels" . | nindent 6 }}
+  {{- include "transmission.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -16,13 +16,13 @@ spec:
       {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-    {{- include "transmission-chart.selectorLabels" . | nindent 8 }}
+    {{- include "transmission.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
       {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "transmission-chart.serviceAccountName" . }}
+      serviceAccountName: {{ include "transmission.serviceAccountName" . }}
       securityContext:
       {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
@@ -104,6 +104,36 @@ spec:
               subPath: {{ .Values.transmission.watchPersistentVolume.subPath }}
               mountPath: /watch
               readOnly: false
+        - image: metalmatze/transmission-exporter
+          name: metrics
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: 100m
+              memory: 100Mi
+            requests:
+              cpu: 50m
+              memory: 30Mi
+          ports:
+            - name: metrics
+              containerPort: 9190
+          env:
+            - name: TRANSMISSION_ADDR
+              value: "http://localhost:9091"
+            - name: TRANSMISSION_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.transmission.userSecretKey }}
+                  name: {{ include "transmission.fullname" . }}
+            - name: TRANSMISSION_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: {{ .Values.transmission.passSecretKey }}
+                  name: {{ include "transmission.fullname" . }}
+            - name: WEB_PATH
+              value: "/metrics"
+            - name: WEB_ADDR
+              value: ":9190"
       {{- with .Values.nodeSelector }}
       nodeSelector:
       {{- toYaml . | nindent 8 }}
@@ -119,10 +149,10 @@ spec:
       volumes:
         - name: static-settings
           configMap:
-            name: {{ include "transmission-chart.fullname" . }}
+            name: {{ include "transmission.fullname" . }}
         - name: auth-secret
           secret:
-            secretName: {{ include "transmission-chart.fullname" . }}
+            secretName: {{ include "transmission.fullname" . }}
         - name: transmission-config
           {{ if .Values.transmission.configPersistentVolume.claimName -}}
           persistentVolumeClaim:
