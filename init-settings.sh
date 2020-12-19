@@ -11,6 +11,3 @@ function merge() {
 echo "${WHITELIST_JSON}" >/tmp/whitelist.json
 merge "${TARGET}" /tmp/whitelist.json
 merge "${TARGET}" "${FROM}"
-
-# TODO
-cat "${TARGET}"
