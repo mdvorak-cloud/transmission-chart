@@ -37,6 +37,7 @@ securityContext: { }
 service:
   type: ClusterIP
   port: 9091
+  torrentPort: 51413
 
 ingress:
   enabled: false

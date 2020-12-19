@@ -11,5 +11,13 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+    - port: {{ .Values.service.torrentPort }}
+      targetPort: torrent-tcp
+      protocol: TCP
+      name: torrent-tcp
+    - port: {{ .Values.service.torrentPort }}
+      targetPort: torrent-udp
+      protocol: UDP
+      name: torrent-udp
   selector:
   {{- include "transmission-chart.selectorLabels" . | nindent 4 }}
