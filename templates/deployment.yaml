@@ -44,6 +44,7 @@ spec:
               mountPath: /var/run/configs/transmission
               readOnly: true
             - name: transmission-config
+              subPath: {{ .Values.transmission.configPersistentVolume.subPath }}
               mountPath: /config
               readOnly: false
       containers:
@@ -84,13 +85,17 @@ spec:
               mountPath: /var/run/secrets/transmission
               readOnly: true
             - name: transmission-config
+              subPath: {{ .Values.transmission.configPersistentVolume.subPath }}
               mountPath: /config
               readOnly: false
             - name: transmission-downloads
+              subPath: {{ .Values.transmission.downloadsPersistentVolume.subPath }}
               mountPath: /downloads
               readOnly: false
             - name: transmission-watch
+              subPath: {{ .Values.transmission.watchPersistentVolume.subPath }}
               mountPath: /watch
+              readOnly: false
       nodeSelector:
       {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -110,11 +115,23 @@ spec:
           secret:
             secretName: {{ include "transmission-chart.fullname" . }}
         - name: transmission-config
+          {{- if .Values.transmission.configPersistentVolume.claimName }}
           persistentVolumeClaim:
-            claimName:
+            claimName: {{ .Values.transmission.configPersistentVolume.claimName }}
+          {{- else -}}
+          emptyDir: { }
+        {{- end }}
         - name: transmission-downloads
+          {{- if .Values.transmission.downloadsPersistentVolume.claimName }}
           persistentVolumeClaim:
-            claimName:
+            claimName: {{ .Values.transmission.downloadsPersistentVolume.claimName }}
+          {{- else -}}
+          emptyDir: { }
+        {{- end }}
         - name: transmission-watch
+          {{- if .Values.transmission.watchPersistentVolume.claimName }}
           persistentVolumeClaim:
-            claimName:
+            claimName: {{ .Values.transmission.watchPersistentVolume.claimName }}
+          {{- else -}}
+          emptyDir: { }
+  {{- end }}
