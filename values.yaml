@@ -65,3 +65,7 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+extraObjects: [ ]
+
+# TODO https://github.com/Naunter/BT_BlockLists/raw/master/bt_blocklists.gz
