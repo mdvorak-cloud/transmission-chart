@@ -44,8 +44,6 @@ spec:
               value: /config/settings.json
             - name: FROM
               value: /var/run/configs/transmission/settings.json
-            - name: WHITELIST
-              value: /tmp/whitelist.json
             - name: WHITELIST_JSON
               value: >-
                 {"rpc-host-whitelist-enabled":false,"rpc-whitelist-enabled":false}

@@ -8,8 +8,8 @@ function merge() {
   fi
 }
 
-echo "${WHITELIST_JSON}" >"${WHITELIST}"
-merge "${TARGET}" "${WHITELIST}"
+echo "${WHITELIST_JSON}" >/tmp/whitelist.json
+merge "${TARGET}" /tmp/whitelist.json
 merge "${TARGET}" "${FROM}"
 
 # TODO
