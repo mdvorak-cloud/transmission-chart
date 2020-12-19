@@ -27,16 +27,28 @@ spec:
       serviceAccountName: {{ include "transmission-chart.serviceAccountName" . }}
       securityContext:
       {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      initContainers:
+        - name: config
+          image: busybox
+          command:
+            - echo
+            - OK
       containers:
-        - name: {{ .Chart.Name }}
+        - name: transmission
           securityContext:
           {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 9091
               protocol: TCP
+            - name: torrent-tcp
+              containerPort: 51413
+              protocol: TCP
+            - name: torrent-udp
+              containerPort: 51413
+              protocol: UDP
           livenessProbe:
             httpGet:
               path: /
@@ -45,6 +57,8 @@ spec:
             httpGet:
               path: /
               port: http
+          env:
+          {{- toYaml .Values.environment | nindent 12 }}
           resources:
       {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
