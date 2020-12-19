@@ -37,6 +37,8 @@ spec:
             - |
               jq -s '.[0] * .[1]' /config/settings.json /var/run/configs/transmission/settings.json > /tmp/settings.json
               cp /tmp/settings.json /config/settings.json
+              # TODO
+              cat /config/settings.json
           volumeMounts:
             - name: static-settings
               mountPath: /var/run/configs/transmission

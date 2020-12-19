@@ -70,10 +70,15 @@ jobs:
           kubectl wait --for=condition=available --timeout=30s "deployment/${NAME}"
         continue-on-error: true
 
-      - name: Print logs
+      - name: Print init logs
         if: steps.wait.outcome == 'failure'
         run: |
-          kubectl logs "deployment/${NAME}"
+          kubectl logs "deployment/${NAME}" --container settings
+
+      - name: Print transmission logs
+        if: steps.wait.outcome == 'failure'
+        run: |
+          kubectl logs "deployment/${NAME}" --container transmission
 
       - name: Helm test
         run: |
