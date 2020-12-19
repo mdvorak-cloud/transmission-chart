@@ -35,10 +35,19 @@ spec:
             - sh
             - -c
             - |
-              jq -s '.[0] * .[1]' /config/settings.json /var/run/configs/transmission/settings.json > /tmp/settings.json
-              cp /tmp/settings.json /config/settings.json
+              if [ -f "${TARGET}" ]; then
+                jq -s '.[0] * .[1]' "${TARGET}" "${FROM}" > /tmp/settings.json
+                cp /tmp/settings.json "${TARGET}"
+              else
+                cp "${FROM}" "${TARGET}"
+              fi
               # TODO
-              cat /config/settings.json
+              cat "${TARGET}"
+          env:
+            - name: TARGET
+              value: /config/settings.json
+            - name: FROM
+              value: /var/run/configs/transmission/settings.json
           volumeMounts:
             - name: static-settings
               mountPath: /var/run/configs/transmission
