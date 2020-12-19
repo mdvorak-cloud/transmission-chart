@@ -1,0 +1,15 @@
+apiVersion: v1
+entries:
+  transmission:
+  - apiVersion: v2
+    appVersion: 3.00-r0-ls70
+    created: "2020-12-19T18:16:32.3362689Z"
+    description: Simple Helm chart for linuxserver/transmission
+    digest: 57eaa0755fd9bc80fa234cda47c647cf024bdeff819a4c1708a9ddd1c24a062a
+    icon: https://raw.githubusercontent.com/mdvorak-cloud/transmission-chart/main/icon.svg
+    name: transmission
+    type: application
+    urls:
+    - https://mdvorak-cloud.github.io/transmission-chart/transmission-0.0.3.tgz
+    version: 0.0.3
+generated: "2020-12-19T18:16:32.335276496Z"
