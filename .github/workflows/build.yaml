@@ -104,13 +104,13 @@ jobs:
       # Release Helm
       - name: Set Helm version
         run: |
-          mkdir -p build/charts
-          cp -r . "build/charts/${NAME}"
-          sed -i "s/^version:.*/version: ${VERSION}/g" "build/charts/${NAME}/Chart.yaml"
-          sed -i "s/^appVersion:.*/appVersion: ${IMAGE_TAG}/g" "build/charts/${NAME}/Chart.yaml"
+          mkdir -p /tmp/build
+          cp -r . "/tmp/build/${NAME}"
+          sed -i "s/^version:.*/version: ${VERSION}/g" "/tmp/build/${NAME}/Chart.yaml"
+          sed -i "s/^appVersion:.*/appVersion: ${IMAGE_TAG}/g" "/tmp/build/${NAME}/Chart.yaml"
 
       - name: Publish Helm chart
         uses: stefanprodan/helm-gh-pages@v1.3.0
         with:
           token: ${{ github.token }}
-          charts_dir: build/charts/
+          charts_dir: /tmp/build/
