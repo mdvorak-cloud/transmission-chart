@@ -20,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       value: ${{ steps.version.outputs.value }}
+      image-tag: ${{ steps.image.outputs.tag }}
     steps:
       - name: Get the version
         id: version
@@ -30,12 +31,18 @@ jobs:
             echo "::set-output name=value::0.0.0-$(date +"%Y%m%d%H%M%S")-${GITHUB_SHA::8}"
           fi
 
+      - name: Get transmission image tag
+        id: image
+        run: |
+          echo "::set-output name=tag::$(grep FROM Dockerfile | cut -d: -f2 -)"
+
   test:
     name: Test
     runs-on: ubuntu-latest
     needs: [ version ]
     env:
       VERSION: ${{ needs.version.outputs.value }}
+      IMAGE_TAG: ${{ needs.version.outputs.image-tag }}
     steps:
       # Checkout
       - name: Checkout
@@ -54,7 +61,7 @@ jobs:
         run: |
           kubectl apply -f ci/fake-secret.yaml
           kubectl apply -f https://raw.githubusercontent.com/helm/charts/master/stable/prometheus-operator/crds/crd-servicemonitor.yaml
-          helm install "${NAME}" . --set transmission.settings.blocklist-url="https://github.com/Naunter/BT_BlockLists/raw/master/bt_blocklists.gz"
+          helm install "${NAME}" . --set image.tag="${IMAGE_TAG}" --set transmission.settings.blocklist-url="https://github.com/Naunter/BT_BlockLists/raw/master/bt_blocklists.gz"
 
       # Test deployment
       - name: Wait
@@ -80,6 +87,7 @@ jobs:
     needs: [ version, test ] # Don't publish if test fails
     env:
       VERSION: ${{ needs.version.outputs.value }}
+      IMAGE_TAG: ${{ needs.version.outputs.image-tag }}
     steps:
       # Checkout
       - name: Checkout
@@ -91,6 +99,7 @@ jobs:
           mkdir -p build/charts
           cp -r . "build/charts/${NAME}"
           sed -i "s/^version:.*/version: ${VERSION}/g" "build/charts/${NAME}/Chart.yaml"
+          sed -i "s/^appVersion:.*/appVersion: ${IMAGE_TAG}/g" "build/charts/${NAME}/Chart.yaml"
 
       - name: Publish Helm chart
         uses: stefanprodan/helm-gh-pages@v1.3.0

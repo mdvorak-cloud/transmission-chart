@@ -3,5 +3,5 @@ name: transmission
 description: Simple Helm chart for linuxserver/transmission
 type: application
 version: 0.0.0
-appVersion: 3.00-r0-ls70
+appVersion: 0.0.0
 icon: https://raw.githubusercontent.com/mdvorak-cloud/transmission-chart/main/icon.svg
