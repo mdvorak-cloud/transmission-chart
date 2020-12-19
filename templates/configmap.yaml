@@ -6,4 +6,4 @@ metadata:
   {{- include "transmission-chart.labels" . | nindent 4 }}
 data:
   settings.json: |
-    {{- toJson .Values.transmission | nindent 4 }}
+    {{- toJson .Values.transmission.settings | nindent 4 }}
