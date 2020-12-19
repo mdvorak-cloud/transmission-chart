@@ -52,6 +52,18 @@ ingress:
   #    hosts:
   #      - transmission.local
 
+metrics:
+  enabled: false
+  port: 9190
+
+serviceMonitor:
+  enabled: false # This assumes metrics.enabled=true
+  interval: "" # Empty to use Prometheus default
+  scrapeTimeout: "" # Empty to use Prometheus default
+  metricRelabelings: [ ] # See https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs
+  relabelings: [ ] # See https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs
+  annotations: { }
+
 resources: { }
 # We usually recommend not to specify default resources and to leave this as a conscious
 # choice for the user. This also increases chances charts run on environments with little

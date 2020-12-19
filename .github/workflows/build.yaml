@@ -64,7 +64,7 @@ jobs:
         run: |
           kubectl apply -f ci/fake-secret.yaml
           kubectl apply -f https://raw.githubusercontent.com/helm/charts/master/stable/prometheus-operator/crds/crd-servicemonitor.yaml
-          helm install "${NAME}" . --set image.tag="${IMAGE_TAG}" --set transmission.settings.blocklist-url="https://github.com/Naunter/BT_BlockLists/raw/master/bt_blocklists.gz"
+          helm install "${NAME}" . --set image.tag="${IMAGE_TAG}" --set serviceMonitor.enabled=true --set transmission.settings.blocklist-url="https://github.com/Naunter/BT_BlockLists/raw/master/bt_blocklists.gz"
 
       # Test deployment
       - name: Wait

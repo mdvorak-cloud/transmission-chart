@@ -8,8 +8,14 @@ metadata:
     "helm.sh/hook": test-success
 spec:
   containers:
-    - name: wget
+    - name: http
       image: busybox
       command: [ 'wget' ]
       args: [ '{{ include "transmission.fullname" . }}:{{ .Values.service.port }}' ]
+    {{- if .Values.metrics.enabled }}
+    - name: metrics
+      image: busybox
+      command: [ 'wget' ]
+      args: [ '{{ include "transmission.fullname" . }}:{{ .Values.metrics.port }}/metrics' ]
+  {{- end }}
   restartPolicy: Never

@@ -19,5 +19,9 @@ spec:
       targetPort: torrent-udp
       protocol: UDP
       name: torrent-udp
+    - port: {{ .Values.serviceMonitor.port }}
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
   selector:
   {{- include "transmission.selectorLabels" . | nindent 4 }}
