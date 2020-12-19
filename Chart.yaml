@@ -2,6 +2,6 @@ apiVersion: v2
 name: transmission
 description: Simple Helm chart for linuxserver/transmission
 type: application
-version: 0.1.0
+version: 0.0.0
 appVersion: 3.00-r0-ls70
 icon: https://raw.githubusercontent.com/mdvorak-cloud/transmission-chart/main/icon.svg

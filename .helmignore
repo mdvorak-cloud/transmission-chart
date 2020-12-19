@@ -21,3 +21,9 @@
 .idea/
 *.tmproj
 .vscode/
+# Resources
+.github/
+build/
+*.svg
+*.png
+*.md
