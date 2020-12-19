@@ -71,14 +71,14 @@ spec:
             - name: torrent-udp
               containerPort: 51413
               protocol: UDP
-          #          livenessProbe:
-          #            httpGet:
-          #              path: /
-          #              port: http
-          #          readinessProbe:
-          #            httpGet:
-          #              path: /
-          #              port: http
+          readinessProbe:
+            httpGet:
+              path: /transmission/rpc
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 2
+            successThreshold: 1
+            failureThreshold: 15
           env:
             - name: FILE__USER
               value: /var/run/secrets/transmission/{{ .Values.transmission.userSecretKey }}
