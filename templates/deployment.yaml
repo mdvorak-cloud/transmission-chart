@@ -5,9 +5,7 @@ metadata:
   labels:
   {{- include "transmission-chart.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-  {{- end }}
   selector:
     matchLabels:
   {{- include "transmission-chart.selectorLabels" . | nindent 6 }}
@@ -76,10 +74,11 @@ spec:
               value: /var/run/secrets/transmission/{{ .Values.transmission.userSecretKey }}
             - name: FILE__PASS
               value: /var/run/secrets/transmission/{{ .Values.transmission.passSecretKey }}
+          {{- if .Values.environment }}
           {{- toYaml .Values.environment | nindent 12 }}
+          {{- end }}
           resources:
           {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.nodeSelector }}
           volumeMounts:
             - name: auth-secret
               mountPath: /var/run/secrets/transmission
@@ -96,6 +95,7 @@ spec:
               subPath: {{ .Values.transmission.watchPersistentVolume.subPath }}
               mountPath: /watch
               readOnly: false
+      {{- with .Values.nodeSelector }}
       nodeSelector:
       {{- toYaml . | nindent 8 }}
       {{- end }}
@@ -115,21 +115,21 @@ spec:
           secret:
             secretName: {{ include "transmission-chart.fullname" . }}
         - name: transmission-config
-          {{- if .Values.transmission.configPersistentVolume.claimName }}
+          {{ if .Values.transmission.configPersistentVolume.claimName -}}
           persistentVolumeClaim:
             claimName: {{ .Values.transmission.configPersistentVolume.claimName }}
           {{- else -}}
           emptyDir: { }
         {{- end }}
         - name: transmission-downloads
-          {{- if .Values.transmission.downloadsPersistentVolume.claimName }}
+          {{ if .Values.transmission.downloadsPersistentVolume.claimName -}}
           persistentVolumeClaim:
             claimName: {{ .Values.transmission.downloadsPersistentVolume.claimName }}
           {{- else -}}
           emptyDir: { }
         {{- end }}
         - name: transmission-watch
-          {{- if .Values.transmission.watchPersistentVolume.claimName }}
+          {{ if .Values.transmission.watchPersistentVolume.claimName -}}
           persistentVolumeClaim:
             claimName: {{ .Values.transmission.watchPersistentVolume.claimName }}
           {{- else -}}

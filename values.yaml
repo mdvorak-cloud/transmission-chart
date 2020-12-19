@@ -74,10 +74,10 @@ affinity: { }
 extraObjects: [ ]
 
 environment: [ ]
-# - name: TZ
-#   value: Europe/London
-# - name: UMASK
-#   value: "022"
+#  - name: TZ
+#    value: Europe/London
+#  - name: UMASK
+#    value: "022"
 
 transmission:
   userSecretKey: user
