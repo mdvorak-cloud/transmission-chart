@@ -97,7 +97,7 @@ transmission:
   userSecretKey: user
   passSecretKey: pass
   settings: { } # List of keys, forcefully set on pod restart to transmission settings.json
-  # blocklist-url: https://github.com/Naunter/BT_BlockLists/raw/master/bt_blocklists.gz
+  #   blocklist-url: https://github.com/Naunter/BT_BlockLists/raw/master/bt_blocklists.gz
   downloadsPersistentVolume:
     claimName: "" # When empty, ephemeral emptyDir will be used
     subPath: ""
