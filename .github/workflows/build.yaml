@@ -106,11 +106,11 @@ jobs:
         run: |
           mkdir -p .build/${NAME}
           cp -r * .helmignore ".build/${NAME}/"
-          sed -i "s/^version:.*/version: ${VERSION}/g" ".build/${NAME}/Chart.yaml"
-          sed -i "s/^appVersion:.*/appVersion: ${IMAGE_TAG}/g" ".build/${NAME}/Chart.yaml"
 
       - name: Publish Helm chart
         uses: stefanprodan/helm-gh-pages@v1.4.1
         with:
           token: ${{ github.token }}
           charts_dir: .build/
+          chart_version: ${{ env.VERSION }}
+          app_version: ${{ env.VERSION }}
