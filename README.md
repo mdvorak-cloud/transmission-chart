@@ -1,3 +1,3 @@
 # Transmission Helm Chart
 
-TBD
+Helm repository: https://mdvorak-cloud.github.io/transmission-chart
