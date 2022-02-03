@@ -32,8 +32,8 @@ spec:
         - name: settings
           securityContext:
           {{- toYaml .Values.securityContext | nindent 12 }}
-          image: {{ .Values.jqImage.repository }}:{{ .Values.jqImage.tag }}
-          imagePullPolicy: {{ .Values.jqImage.pullPolicy }}
+          image: {{ .Values.settingsImage.repository }}:{{ .Values.settingsImage.tag }}
+          imagePullPolicy: {{ .Values.settingsImage.pullPolicy }}
           command:
             - sh
             - -c

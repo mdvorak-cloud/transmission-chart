@@ -3,10 +3,10 @@ image:
   pullPolicy: IfNotPresent
   tag: ""
 
-jqImage:
-  repository: quay.io/mdvorak/ubi-jq
+settingsImage:
+  repository: mikefarah/yq
   pullPolicy: IfNotPresent
-  tag: 8
+  tag: 4
 
 metricsImage:
   repository: metalmatze/transmission-exporter
