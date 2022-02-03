@@ -8,6 +8,6 @@ function merge() {
   fi
 }
 
-echo "${WHITELIST_JSON}" >/tmp/whitelist.json
-merge "${TARGET}" /tmp/whitelist.json
+echo "${STATIC_JSON}" >/tmp/forced.json
+merge "${TARGET}" /tmp/forced.json
 merge "${TARGET}" "${FROM}"

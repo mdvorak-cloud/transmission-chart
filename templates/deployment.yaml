@@ -44,9 +44,9 @@ spec:
               value: /config/settings.json
             - name: FROM
               value: /var/run/configs/transmission/settings.json
-            - name: WHITELIST_JSON
+            - name: STATIC_JSON
               value: >-
-                {"rpc-host-whitelist-enabled":false,"rpc-whitelist-enabled":false}
+                {"rpc-host-whitelist-enabled":false,"rpc-whitelist-enabled":false,"download-dir":"/downloads"}
           volumeMounts:
             - name: static-settings
               mountPath: /var/run/configs/transmission
