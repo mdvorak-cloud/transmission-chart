@@ -5,12 +5,12 @@ image:
 
 settingsImage:
   repository: mikefarah/yq
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   tag: 4
 
 metricsImage:
   repository: metalmatze/transmission-exporter
-  pullPolicy: IfNotPresent
+  pullPolicy: Always
   tag: master # Move to stable version when available
 
 imagePullSecrets: [ ]
