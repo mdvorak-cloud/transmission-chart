@@ -61,6 +61,13 @@ metrics:
     pullPolicy: IfNotPresent
     tag: 0.3.0 # TODO update in CI to latest
   environment: { }
+  resources: { }
+  # limits:
+  #   cpu: 100m
+  #   memory: 50Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 50Mi
 
 serviceMonitor:
   enabled: false # This assumes metrics.enabled=true

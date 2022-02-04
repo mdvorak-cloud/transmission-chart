@@ -111,12 +111,7 @@ spec:
           securityContext:
           {{- toYaml .Values.securityContext | nindent 12 }}
           resources:
-            limits:
-              cpu: 100m
-              memory: 100Mi
-            requests:
-              cpu: 50m
-              memory: 30Mi
+          {{- toYaml .Values.metrics.resources | nindent 12 }}
           ports:
             - name: metrics
               containerPort: {{ .Values.metrics.port }}
