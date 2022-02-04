@@ -102,8 +102,6 @@ environment: [ ]
 #    value: Europe/London
 
 transmission:
-  userSecretKey: user
-  passSecretKey: pass
   # List of keys, forcefully set on pod restart to transmission settings.json
   # https://github.com/transmission/transmission/wiki/Editing-Configuration-Files
   settings:
@@ -121,4 +119,6 @@ transmission:
   watchPersistentVolume:
     claimName: "" # When empty, ephemeral emptyDir will be used
     subPath: ""
+  userSecretKey: user
+  passSecretKey: pass
   printSettings: false
