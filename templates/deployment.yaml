@@ -40,6 +40,9 @@ spec:
             - |
               {{- .Files.Get "merge.sh" | trim | nindent 14 }}
               merge /config/settings.json /var/run/configs/transmission/settings.json
+              {{- if .Values.transmission.printSettings }}
+              cat /config/settings.json
+              {{- end }}
           volumeMounts:
             - name: static-settings
               mountPath: /var/run/configs/transmission
