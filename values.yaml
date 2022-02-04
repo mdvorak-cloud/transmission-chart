@@ -1,17 +1,13 @@
 image:
   repository: lscr.io/linuxserver/transmission
   pullPolicy: IfNotPresent
-  tag: ""
+  tag: "" # Uses app-version
 
-settingsImage:
-  repository: mikefarah/yq
-  pullPolicy: Always
-  tag: 4
-
-metricsImage:
-  repository: metalmatze/transmission-exporter
-  pullPolicy: Always
-  tag: master # Move to stable version when available
+settings:
+  image:
+    repository: mikefarah/yq
+    pullPolicy: IfNotPresent
+    tag: 4 # TODO use specific tag and update in CI to latest
 
 imagePullSecrets: [ ]
 nameOverride: ""
@@ -60,6 +56,11 @@ ingress:
 metrics:
   enabled: false
   port: 9190
+  image:
+    repository: metalmatze/transmission-exporter
+    pullPolicy: IfNotPresent
+    tag: 0.3.0 # TODO update in CI to latest
+  environment: { }
 
 serviceMonitor:
   enabled: false # This assumes metrics.enabled=true

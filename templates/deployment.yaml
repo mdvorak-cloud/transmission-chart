@@ -32,8 +32,8 @@ spec:
         - name: settings
           securityContext:
           {{- toYaml .Values.securityContext | nindent 12 }}
-          image: {{ .Values.settingsImage.repository }}:{{ .Values.settingsImage.tag }}
-          imagePullPolicy: {{ .Values.settingsImage.pullPolicy }}
+          image: {{ .Values.settings.image.repository }}:{{ .Values.settings.image.tag }}
+          imagePullPolicy: {{ .Values.settings.image.pullPolicy }}
           command:
             - sh
             - -c
@@ -105,9 +105,9 @@ spec:
               mountPath: /watch
               readOnly: false
         {{- if .Values.metrics.enabled }}
-        - image: {{ .Values.metricsImage.repository }}:{{ .Values.metricsImage.tag }}
+        - image: {{ .Values.metrics.image.repository }}:{{ .Values.metrics.image.tag }}
           name: metrics
-          imagePullPolicy: {{ .Values.metricsImage.pullPolicy }}
+          imagePullPolicy: {{ .Values.metrics.image.pullPolicy }}
           securityContext:
           {{- toYaml .Values.securityContext | nindent 12 }}
           resources:
@@ -123,6 +123,10 @@ spec:
           env:
             - name: TRANSMISSION_ADDR
               value: "http://localhost:9091"
+            - name: TRANSMISSION_HOST
+              value: "localhost"
+            - name: TRANSMISSION_PORT
+              value: "9091"
             - name: TRANSMISSION_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -137,6 +141,9 @@ spec:
               value: "/metrics"
             - name: WEB_ADDR
               value: ":{{ .Values.metrics.port }}"
+          {{- if .Values.metrics.environment }}
+          {{- toYaml .Values.metrics.environment | nindent 12 }}
+          {{- end }}
       {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
