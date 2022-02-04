@@ -104,8 +104,13 @@ environment: [ ]
 transmission:
   userSecretKey: user
   passSecretKey: pass
-  settings: { } # List of keys, forcefully set on pod restart to transmission settings.json
-  #   blocklist-url: https://github.com/Naunter/BT_BlockLists/raw/master/bt_blocklists.gz
+  # List of keys, forcefully set on pod restart to transmission settings.json
+  settings:
+    download-dir: /downloads
+    incomplete-dir: /downloads/incomplete
+    rpc-host-whitelist-enabled: false
+    rpc-whitelist-enabled: false
+    # blocklist-url: https://github.com/Naunter/BT_BlockLists/raw/master/bt_blocklists.gz
   downloadsPersistentVolume:
     claimName: "" # When empty, ephemeral emptyDir will be used
     subPath: ""

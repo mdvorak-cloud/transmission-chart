@@ -38,15 +38,8 @@ spec:
             - sh
             - -c
             - |
-          {{- .Files.Get "init-settings.sh" | trim | nindent 14 }}
-          env:
-            - name: TARGET
-              value: /config/settings.json
-            - name: FROM
-              value: /var/run/configs/transmission/settings.json
-            - name: STATIC_JSON
-              value: >-
-                {"download-dir":"/downloads","incomplete-dir":"/downloads/incomplete"}
+              {{- .Files.Get "merge.sh" | trim | nindent 14 }}
+              merge /config/settings.json /var/run/configs/transmission/settings.json
           volumeMounts:
             - name: static-settings
               mountPath: /var/run/configs/transmission

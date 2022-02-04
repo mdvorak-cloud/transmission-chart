@@ -7,7 +7,3 @@ function merge() {
     cp "$2" "$1"
   fi
 }
-
-echo "${STATIC_JSON}" >/tmp/forced.json
-merge "${TARGET}" /tmp/forced.json
-merge "${TARGET}" "${FROM}"
