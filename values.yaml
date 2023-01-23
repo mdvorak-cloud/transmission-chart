@@ -7,7 +7,7 @@ settings:
   image:
     repository: mikefarah/yq
     pullPolicy: IfNotPresent
-    tag: 4.18.1 # TODO use specific tag and update in CI to latest
+    tag: 4.30.8 # TODO use specific tag and update in CI to latest
 
 imagePullSecrets: [ ]
 nameOverride: ""
